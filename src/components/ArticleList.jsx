@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Text, VStack, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
 import axios from "axios";
 
-const ArticleList = ({ query }) => {
+const ArticleList = ({ query, filter, sortOrder }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const ArticleList = ({ query }) => {
       setLoading(true);
       setError(null);
       axios
-        .get(`https://api.example.com/articles?search=${query}`)
+        .get(`https://api.example.com/articles?search=${query}&filter=${filter}&sort=${sortOrder}`)
         .then((response) => {
           setArticles(response.data);
           setLoading(false);
@@ -22,7 +22,7 @@ const ArticleList = ({ query }) => {
           setLoading(false);
         });
     }
-  }, [query]);
+  }, [query, filter, sortOrder]);
 
   if (loading) {
     return (

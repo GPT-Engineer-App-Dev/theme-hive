@@ -1,10 +1,12 @@
-import { Container, VStack, Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
+import { Container, VStack, Input, InputGroup, InputLeftElement, IconButton, Select, HStack } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 import ArticleList from "../components/ArticleList";
 
 const Index = () => {
   const [query, setQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [filter, setFilter] = useState("");
 
   const handleSearch = () => {
     setQuery(query);
@@ -32,7 +34,18 @@ const Index = () => {
             onClick={handleSearch}
           />
         </InputGroup>
-        <ArticleList query={query} />
+        <HStack spacing={4} width="100%">
+          <Select placeholder="Filter by" value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="category1">Category 1</option>
+            <option value="category2">Category 2</option>
+            <option value="category3">Category 3</option>
+          </Select>
+          <Select placeholder="Sort by" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </Select>
+        </HStack>
+        <ArticleList query={query} filter={filter} sortOrder={sortOrder} />
       </VStack>
     </Container>
   );
