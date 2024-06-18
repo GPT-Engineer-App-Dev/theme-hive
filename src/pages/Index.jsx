@@ -1,13 +1,13 @@
 import { Container, VStack, Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
+import ArticleList from "../components/ArticleList";
 
 const Index = () => {
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
-    console.log("User query:", query);
-    // Implement search functionality here
+    setQuery(query);
   };
 
   return (
@@ -32,6 +32,7 @@ const Index = () => {
             onClick={handleSearch}
           />
         </InputGroup>
+        <ArticleList query={query} />
       </VStack>
     </Container>
   );
